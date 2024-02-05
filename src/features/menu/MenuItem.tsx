@@ -1,4 +1,10 @@
-export default function MenuItem({ pizza }) {
+import { MenuItemModel } from '../../models/MenuItemModel';
+
+type MenuItemProps = {
+  pizza: MenuItemModel;
+};
+
+export default function MenuItem({ pizza }: MenuItemProps) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
   return (
