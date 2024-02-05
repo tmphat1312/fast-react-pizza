@@ -4,7 +4,7 @@
 //     str,
 //   );
 
-import { Form } from 'react-router-dom';
+import { Form, useNavigation } from 'react-router-dom';
 
 const fakeCart = [
   {
@@ -31,8 +31,11 @@ const fakeCart = [
 ];
 
 function CreateOrder() {
+  const navigation = useNavigation();
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
+
+  const isSubmitting = navigation.state === 'submitting';
 
   return (
     <section>
@@ -72,7 +75,9 @@ function CreateOrder() {
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
 
         <div>
-          <button>Order now</button>
+          <button disabled={isSubmitting}>
+            {isSubmitting ? 'Placing order ...' : 'Place order'}
+          </button>
         </div>
       </Form>
     </section>
