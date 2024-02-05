@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function CartOverview() {
   return (
     <div>
@@ -5,7 +7,11 @@ export default function CartOverview() {
         <span>23 pizzas</span>
         <span>$23.45</span>
       </p>
-      <a href="#">Open cart &rarr;</a>
+
+      <Link to="/cart">
+        Open cart
+        <span role="presentation">&rarr;</span>
+      </Link>
     </div>
   );
 }
