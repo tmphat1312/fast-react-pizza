@@ -8,6 +8,7 @@ import { createOrderAction } from './features/order/createOrderAction';
 import { orderLoader } from './features/order/orderLoader';
 import AppLayout from './layouts/AppLayout';
 import ErrorElement from './ui/Error';
+import Home from './ui/Home';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <div>home</div>,
+        element: <Home />,
       },
       {
         path: '/menu',
