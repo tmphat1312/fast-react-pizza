@@ -2,8 +2,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Menu from './features/menu/Menu';
 import { menuLoader } from './features/menu/menuLoader';
+import Order from './features/order/Order';
 import AppLayout from './layouts/AppLayout';
 import ErrorElement from './ui/Error';
+import { orderLoader } from './features/order/orderLoader';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +32,9 @@ const router = createBrowserRouter([
       },
       {
         path: '/order/:orderId',
-        element: <div>order</div>,
+        element: <Order />,
+        loader: orderLoader,
+        errorElement: <ErrorElement />,
       },
     ],
   },
