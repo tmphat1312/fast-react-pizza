@@ -9,6 +9,7 @@ import { orderLoader } from './features/order/orderLoader';
 import AppLayout from './layouts/AppLayout';
 import ErrorElement from './ui/Error';
 import Home from './ui/Home';
+import Cart from './features/cart/Cart';
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/cart',
-        element: <div>cart</div>,
+        element: <Cart />,
       },
       {
         path: '/order/new',

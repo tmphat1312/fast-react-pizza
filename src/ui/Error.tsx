@@ -1,11 +1,7 @@
-import {
-  useNavigate,
-  useRouteError,
-  isRouteErrorResponse,
-} from 'react-router-dom';
+import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import BackButton from './BackButton';
 
 export default function ErrorElement() {
-  const navigate = useNavigate();
   const error = useRouteError();
   let message: string;
 
@@ -23,9 +19,8 @@ export default function ErrorElement() {
     <div>
       <h1>Something went wrong 😢</h1>
       <p>{message}</p>
-      <button onClick={() => navigate(-1)}>
-        <span role="presentation">&larr;</span> Go back
-      </button>
+
+      <BackButton />
     </div>
   );
 }

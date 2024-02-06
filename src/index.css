@@ -6,12 +6,10 @@
   body {
     @apply bg-stone-100 text-stone-700;
   }
+}
 
-  .layout {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    gap: 2rem;
-    height: 100vh;
-    height: 100svh;
+@layer components {
+  .cp-input {
+    @apply w-full px-3 py-1 border rounded-full border-stone-200 md:px-4 md:py-2;
   }
 }

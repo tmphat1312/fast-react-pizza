@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
 import ctnQueryPlugin from '@tailwindcss/container-queries';
-import formPlugin from '@tailwindcss/forms';
 import colors from 'tailwindcss/colors';
 
 export default {
@@ -13,5 +12,5 @@ export default {
       },
     },
   },
-  plugins: [ctnQueryPlugin, formPlugin],
+  plugins: [ctnQueryPlugin],
 };

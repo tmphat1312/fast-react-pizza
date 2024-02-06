@@ -2,6 +2,7 @@ import { Form, useNavigation } from 'react-router-dom';
 import { useFormActionData } from '../../hooks/useFormActionData';
 import { FormErrorSchema } from '../../schemas/FormErrorSchema';
 import { CreateOrderFormSchema } from '../../schemas/CreateOrderFormSchema';
+import Button from '../../ui/Button';
 
 const fakeCart = [
   {
@@ -43,13 +44,13 @@ function CreateOrder() {
       <Form method="post" action="/order/new">
         <div>
           <label>First Name</label>
-          <input type="text" name="customer" required />
+          <input className="cp-input" type="text" name="customer" required />
         </div>
 
         <div>
           <label>Phone number</label>
           <div>
-            <input type="tel" name="phone" required />
+            <input className="cp-input" type="tel" name="phone" required />
             {errors.phone && <span>{errors.phone}</span>}
           </div>
         </div>
@@ -57,12 +58,13 @@ function CreateOrder() {
         <div>
           <label>Address</label>
           <div>
-            <input type="text" name="address" required />
+            <input className="cp-input" type="text" name="address" required />
           </div>
         </div>
 
-        <div>
+        <div className="flex items-center gap-2">
           <input
+            className="h-6 aspect-square accent-primary-400"
             type="checkbox"
             name="priority"
             id="priority"
@@ -75,9 +77,9 @@ function CreateOrder() {
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
 
         <div>
-          <button disabled={isSubmitting}>
-            {isSubmitting ? 'Placing order ...' : 'Place order'}
-          </button>
+          <Button disabled={isSubmitting} type="submit">
+            {isSubmitting ? 'Placing order...' : 'Place Order'}
+          </Button>
         </div>
       </Form>
     </section>
