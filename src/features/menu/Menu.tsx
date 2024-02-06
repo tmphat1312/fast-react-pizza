@@ -6,7 +6,7 @@ export default function Menu() {
   const data = useLoaderData<MenuItemModel[]>();
 
   return (
-    <ul>
+    <ul className="px-2 divide-y divide-stone-200">
       {data.map((item) => (
         <MenuItem key={item.id} pizza={item} />
       ))}
