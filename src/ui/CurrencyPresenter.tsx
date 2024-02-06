@@ -1,10 +1,10 @@
 import { currencyFormatter } from '../utils/formatter';
 
-export default function CurrencyPresenter({
-  amount,
-}: {
+type CurrencyPresenterProps = {
   amount: number | bigint | string;
-}) {
+};
+
+export default function CurrencyPresenter({ amount }: CurrencyPresenterProps) {
   if (typeof amount === 'string') {
     amount = parseFloat(amount);
   }
