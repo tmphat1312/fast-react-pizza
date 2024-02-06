@@ -1,12 +1,12 @@
 .loader {
-  --c: no-repeat linear-gradient(#333 0 0);
+  --c: no-repeat linear-gradient(theme(colors.primary.500) 0 0);
 
-  width: 45px;
+  width: 3rem;
   aspect-ratio: 0.75;
 
   background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
   background-size: 20% 50%;
-  animation: loading 1s infinite linear;
+  animation: loading 1000ms infinite linear;
 }
 
 @keyframes loading {
