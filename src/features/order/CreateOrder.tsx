@@ -1,7 +1,7 @@
 import { Form, useNavigation } from 'react-router-dom';
 import { useFormActionData } from '../../hooks/useFormActionData';
-import { FormErrorSchema } from '../../schemas/FormErrorSchema';
 import { CreateOrderFormSchema } from '../../schemas/CreateOrderFormSchema';
+import { FormErrorSchema } from '../../schemas/FormErrorSchema';
 import Button from '../../ui/Button';
 
 const fakeCart = [
@@ -38,31 +38,34 @@ function CreateOrder() {
   const errors = formData?.errors || {};
 
   return (
-    <section>
-      <h2>Ready to order? Let's go!</h2>
+    <section className="px-4 py-6">
+      <h2 className="mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
 
       <Form method="post" action="/order/new">
-        <div>
-          <label>First Name</label>
+        <div className="flex flex-col gap-2 mb-5 sm:gap-4 sm:items-center sm:flex-row">
+          <label className="shrink-0 min-w-[12ch]">First Name</label>
           <input className="cp-input" type="text" name="customer" required />
         </div>
 
-        <div>
-          <label>Phone number</label>
-          <div>
+        <div className="flex flex-col gap-2 mb-5 sm:gap-4 sm:items-center sm:flex-row">
+          <label className="shrink-0 min-w-[12ch]">Phone number</label>
+          <div className="grow">
             <input className="cp-input" type="tel" name="phone" required />
             {errors.phone && <span>{errors.phone}</span>}
+            <p className="p-2 mt-2 text-xs text-red-700 bg-red-100 rounded-xl">
+              this is a error message for styling purposes
+            </p>
           </div>
         </div>
 
-        <div>
-          <label>Address</label>
-          <div>
+        <div className="flex flex-col gap-2 mb-5 sm:gap-4 sm:items-center sm:flex-row">
+          <label className="shrink-0 min-w-[12ch]">Address</label>
+          <div className="grow">
             <input className="cp-input" type="text" name="address" required />
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-5 mb-12">
           <input
             className="h-6 aspect-square accent-primary-400"
             type="checkbox"
@@ -71,7 +74,9 @@ function CreateOrder() {
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority">Want to yo give your order priority?</label>
+          <label htmlFor="priority" className="font-semibold">
+            Want to yo give your order priority?
+          </label>
         </div>
 
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
