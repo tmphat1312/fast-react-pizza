@@ -1,45 +1,54 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AnchorButton from '../../ui/AnchorButton';
 import Button from '../../ui/Button';
+import CartItem from './CartItem';
 
-// const fakeCart = [
-//   {
-//     pizzaId: 12,
-//     name: 'Mediterranean',
-//     quantity: 2,
-//     unitPrice: 16,
-//     totalPrice: 32,
-//   },
-//   {
-//     pizzaId: 6,
-//     name: 'Vegetale',
-//     quantity: 1,
-//     unitPrice: 13,
-//     totalPrice: 13,
-//   },
-//   {
-//     pizzaId: 11,
-//     name: 'Spinach and Mushroom',
-//     quantity: 1,
-//     unitPrice: 15,
-//     totalPrice: 15,
-//   },
-// ];
+const fakeCart = [
+  {
+    pizzaId: 12,
+    name: 'Mediterranean',
+    quantity: 2,
+    unitPrice: 16,
+    totalPrice: 32,
+  },
+  {
+    pizzaId: 6,
+    name: 'Vegetale',
+    quantity: 1,
+    unitPrice: 13,
+    totalPrice: 13,
+  },
+  {
+    pizzaId: 11,
+    name: 'Spinach and Mushroom',
+    quantity: 1,
+    unitPrice: 15,
+    totalPrice: 15,
+  },
+];
 
 export default function Cart() {
-  // const cart = fakeCart;
+  const cart = fakeCart;
   const navigate = useNavigate();
 
   return (
-    <div>
-      <AnchorButton to="/menu">&larr; Back to menu</AnchorButton>
+    <section className="px-4 py-3">
+      <AnchorButton to="/menu" className="inline-block mb-7">
+        &larr; Back to menu
+      </AnchorButton>
 
-      <h2>Your cart, %NAME%</h2>
+      <h2 className="mb-3 text-xl font-semibold">Your cart, %NAME%</h2>
 
-      <div>
+      <ul className="mb-6 border-b divide-y divide-stone-200">
+        {cart.map((item) => (
+          <CartItem key={item.pizzaId} item={item} />
+        ))}
+      </ul>
+
+      <div className="space-x-2">
         <Button onClick={() => navigate('/order/new')}>Order pizzas</Button>
-        <button>Clear cart</button>
+        <Button variant="secondary">Clear cart</Button>
       </div>
-    </div>
+    </section>
   );
 }

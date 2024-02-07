@@ -12,6 +12,8 @@ const SIZE_VARIANTS = {
 
 const STYLE_VARIANTS = {
   primary: 'bg-primary-400 text-stone-800',
+  secondary:
+    'text-stone-500 hover:text-stone-800 hover:bg-stone-300 border-2 border-stone-300',
 };
 
 export default function Button({
