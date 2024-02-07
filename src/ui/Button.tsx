@@ -1,8 +1,8 @@
 import { twMerge } from 'tailwind-merge';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  size?: 'sm' | 'md';
-  variant?: 'primary';
+  size?: keyof typeof SIZE_VARIANTS;
+  variant?: keyof typeof STYLE_VARIANTS;
 };
 
 const SIZE_VARIANTS = {
@@ -16,19 +16,19 @@ const STYLE_VARIANTS = {
 
 export default function Button({
   children,
-  size,
-  variant,
+  size = 'md',
+  variant = 'primary',
   className,
   ...props
 }: ButtonProps) {
   return (
     <button
       className={twMerge(
-        'inline-block font-semibold tracking-wide uppercase  ',
+        'inline-block font-semibold tracking-wide uppercase transition-colors rounded-full',
         '[&:not(:disabled)]:hover:brightness-110 [&:not(:disabled)]:active:brightness-90',
-        'transition-colors rounded-full disabled:grayscale disabled:cursor-not-allowed',
-        SIZE_VARIANTS[size ?? 'md'],
-        STYLE_VARIANTS[variant ?? 'primary'],
+        'disabled:grayscale disabled:cursor-not-allowed',
+        SIZE_VARIANTS[size],
+        STYLE_VARIANTS[variant],
         className,
       )}
       {...props}
