@@ -1,3 +1,11 @@
+import { useAppSelector } from '../hooks/useAppSelector';
+
 export default function Username() {
-  return <div className="hidden text-sm font-semibold md:block">My name</div>;
+  const username = useAppSelector((state) => state.user.username);
+
+  return (
+    username && (
+      <div className="hidden text-sm font-semibold md:block">{username}</div>
+    )
+  );
 }
