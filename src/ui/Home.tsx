@@ -1,6 +1,13 @@
+import { useNavigate } from 'react-router-dom';
+
 import CreateUser from '../features/user/CreateUser';
+import { useAppSelector } from '../hooks/useAppSelector';
+import Button from './Button';
 
 export default function Home() {
+  const username = useAppSelector((state) => state.user.username);
+  const navigate = useNavigate();
+
   return (
     <section className="px-4 my-10 text-center sm:my-16">
       <h1 className="mb-8 text-xl font-bold md:text-3xl">
@@ -11,7 +18,13 @@ export default function Home() {
         </span>
       </h1>
 
-      <CreateUser />
+      {username.length == 0 ? (
+        <CreateUser />
+      ) : (
+        <Button onClick={() => navigate('/menu')}>
+          Continue ordering, {username}
+        </Button>
+      )}
     </section>
   );
 }

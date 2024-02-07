@@ -1,7 +1,7 @@
 import { twJoin } from 'tailwind-merge';
 import { MenuItemModel } from '../../models/MenuItemModel';
-import CurrencyPresenter from '../../ui/CurrencyPresenter';
 import Button from '../../ui/Button';
+import CurrencyPresenter from '../../ui/CurrencyPresenter';
 
 type MenuItemProps = {
   pizza: MenuItemModel;

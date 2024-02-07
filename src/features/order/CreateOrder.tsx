@@ -3,6 +3,7 @@ import { useFormActionData } from '../../hooks/useFormActionData';
 import { CreateOrderFormSchema } from '../../schemas/CreateOrderFormSchema';
 import { FormErrorSchema } from '../../schemas/FormErrorSchema';
 import Button from '../../ui/Button';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 const fakeCart = [
   {
@@ -30,6 +31,7 @@ const fakeCart = [
 
 function CreateOrder() {
   const navigation = useNavigation();
+  const username = useAppSelector((state) => state.user.username);
   const formData = useFormActionData<FormErrorSchema<CreateOrderFormSchema>>();
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
@@ -44,17 +46,24 @@ function CreateOrder() {
       <Form method="post" action="/order/new">
         <div className="flex flex-col gap-2 mb-5 sm:gap-4 sm:items-center sm:flex-row">
           <label className="shrink-0 min-w-[12ch]">First Name</label>
-          <input className="cp-input" type="text" name="customer" required />
+          <input
+            className="cp-input"
+            type="text"
+            name="customer"
+            required
+            defaultValue={username}
+          />
         </div>
 
         <div className="flex flex-col gap-2 mb-5 sm:gap-4 sm:items-center sm:flex-row">
           <label className="shrink-0 min-w-[12ch]">Phone number</label>
           <div className="grow">
             <input className="cp-input" type="tel" name="phone" required />
-            {errors.phone && <span>{errors.phone}</span>}
-            <p className="p-2 mt-2 text-xs text-red-700 bg-red-100 rounded-xl">
-              this is a error message for styling purposes
-            </p>
+            {errors.phone && (
+              <p className="p-2 mt-2 text-xs text-red-700 bg-red-100 rounded-xl">
+                {errors.phone}
+              </p>
+            )}
           </div>
         </div>
 
