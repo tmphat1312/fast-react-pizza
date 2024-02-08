@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { CartItemModel } from '../../models/CartItemModel';
 import { MenuItemModel } from '../../models/MenuItemModel';
+import { RootState } from '../../store';
 
 type CartState = {
   cart: CartItemModel[];
@@ -71,6 +72,14 @@ export const cartSlice = createSlice({
     },
   },
 });
+
+export function selectTotalPrice(state: RootState) {
+  return state.cart.cart.reduce((acc, item) => acc + item.totalPrice, 0);
+}
+
+export function selectorTotalItems(state: RootState) {
+  return state.cart.cart.reduce((acc, item) => acc + item.quantity, 0);
+}
 
 export const {
   addItem,
