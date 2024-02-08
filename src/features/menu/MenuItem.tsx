@@ -1,18 +1,23 @@
+import { Fragment } from 'react';
 import { twJoin } from 'tailwind-merge';
+
 import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { CartItemModel } from '../../models/CartItemModel';
 import { MenuItemModel } from '../../models/MenuItemModel';
 import Button from '../../ui/Button';
 import CurrencyPresenter from '../../ui/CurrencyPresenter';
-import { addItem } from '../cart/cartSlice';
+import RemoveCartItemButton from '../cart/RemoveCartItemButton';
+import { addItem, selectorItemQuantity } from '../cart/cartSlice';
 
 type MenuItemProps = {
   pizza: MenuItemModel;
 };
 
 export default function MenuItem({ pizza }: MenuItemProps) {
-  const dispatch = useAppDispatch();
   const { name, unitPrice, ingredients, soldOut, imageUrl, id } = pizza;
+  const dispatch = useAppDispatch();
+  const isAlreadyInCart = useAppSelector(selectorItemQuantity(id));
 
   function handleAddToCart() {
     const newCartItem: CartItemModel = {
@@ -47,12 +52,16 @@ export default function MenuItem({ pizza }: MenuItemProps) {
           {soldOut ? (
             <p className="font-semibold uppercase text-stone-500">Sold out</p>
           ) : (
-            <>
+            <Fragment>
               <CurrencyPresenter amount={unitPrice} />
-              <Button size="sm" disabled={soldOut} onClick={handleAddToCart}>
-                Add to cart
-              </Button>
-            </>
+              {isAlreadyInCart ? (
+                <RemoveCartItemButton pizzaId={id} />
+              ) : (
+                <Button size="sm" disabled={soldOut} onClick={handleAddToCart}>
+                  Add to cart
+                </Button>
+              )}
+            </Fragment>
           )}
         </div>
       </article>

@@ -81,6 +81,13 @@ export function selectorTotalItems(state: RootState) {
   return state.cart.cart.reduce((acc, item) => acc + item.quantity, 0);
 }
 
+export function selectorItemQuantity(pizzaId: number) {
+  return (state: RootState) => {
+    const item = state.cart.cart.find((i) => i.pizzaId === pizzaId);
+    return item?.quantity ?? 0;
+  };
+}
+
 export const {
   addItem,
   addItemQuantity,
