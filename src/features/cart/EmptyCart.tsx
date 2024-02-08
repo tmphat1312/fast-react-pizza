@@ -1,11 +1,16 @@
-import { Link } from 'react-router-dom';
+import AnchorButton from '../../ui/AnchorButton';
 
 export default function EmptyCart() {
   return (
-    <div>
-      <Link to="/menu">&larr; Back to menu</Link>
+    <div className="px-4 py-3">
+      <AnchorButton to="/menu" className="inline-block mb-7">
+        &larr; Back to menu
+      </AnchorButton>
 
-      <p>Your cart is still empty. Start adding some pizzas :)</p>
+      <p className="text-lg font-bold">
+        Your cart is still empty. Start adding some pizzas
+        <span role="presentation"> :)</span>
+      </p>
     </div>
   );
 }

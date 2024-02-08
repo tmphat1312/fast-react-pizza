@@ -3,37 +3,29 @@ import AnchorButton from '../../ui/AnchorButton';
 import Button from '../../ui/Button';
 import CartItem from './CartItem';
 import { useAppSelector } from '../../hooks/useAppSelector';
-
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: 'Mediterranean',
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: 'Vegetale',
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: 'Spinach and Mushroom',
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { clearCart } from './cartSlice';
+import EmptyCart from './EmptyCart';
 
 export default function Cart() {
-  const cart = fakeCart;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const username = useAppSelector((state) => state.user.username);
+  const cart = useAppSelector((state) => state.cart.cart);
 
-  return (
+  function handleClearCart() {
+    const confirmed = window.confirm(
+      'Are you sure you want to clear your cart?',
+    );
+
+    if (confirmed) {
+      dispatch(clearCart());
+    }
+  }
+
+  return cart.length == 0 ? (
+    <EmptyCart />
+  ) : (
     <section className="px-4 py-3">
       <AnchorButton to="/menu" className="inline-block mb-7">
         &larr; Back to menu
@@ -49,7 +41,9 @@ export default function Cart() {
 
       <div className="space-x-2">
         <Button onClick={() => navigate('/order/new')}>Order pizzas</Button>
-        <Button variant="secondary">Clear cart</Button>
+        <Button variant="secondary" onClick={handleClearCart}>
+          Clear cart
+        </Button>
       </div>
     </section>
   );
