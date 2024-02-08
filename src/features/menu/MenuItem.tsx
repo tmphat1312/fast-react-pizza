@@ -1,14 +1,30 @@
 import { twJoin } from 'tailwind-merge';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { CartItemModel } from '../../models/CartItemModel';
 import { MenuItemModel } from '../../models/MenuItemModel';
 import Button from '../../ui/Button';
 import CurrencyPresenter from '../../ui/CurrencyPresenter';
+import { addItem } from '../cart/cartSlice';
 
 type MenuItemProps = {
   pizza: MenuItemModel;
 };
 
 export default function MenuItem({ pizza }: MenuItemProps) {
-  const { name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+  const dispatch = useAppDispatch();
+  const { name, unitPrice, ingredients, soldOut, imageUrl, id } = pizza;
+
+  function handleAddToCart() {
+    const newCartItem: CartItemModel = {
+      pizzaId: id,
+      name,
+      quantity: 1,
+      unitPrice,
+      totalPrice: unitPrice * 1,
+    };
+
+    dispatch(addItem(newCartItem));
+  }
 
   return (
     <li className="flex gap-4 py-2">
@@ -31,12 +47,13 @@ export default function MenuItem({ pizza }: MenuItemProps) {
           {soldOut ? (
             <p className="font-semibold uppercase text-stone-500">Sold out</p>
           ) : (
-            <CurrencyPresenter amount={unitPrice} />
+            <>
+              <CurrencyPresenter amount={unitPrice} />
+              <Button size="sm" disabled={soldOut} onClick={handleAddToCart}>
+                Add to cart
+              </Button>
+            </>
           )}
-
-          <Button size="sm" disabled={soldOut}>
-            Add to cart
-          </Button>
         </div>
       </article>
     </li>

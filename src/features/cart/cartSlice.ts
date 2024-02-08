@@ -1,26 +1,20 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+
 import { CartItemModel } from '../../models/CartItemModel';
+import { MenuItemModel } from '../../models/MenuItemModel';
 
 type CartState = {
   cart: CartItemModel[];
 };
 
 type _UpdateItemQuantityAction = PayloadAction<{
-  pizzaId: number;
+  pizzaId: MenuItemModel['id'];
   quantity: number;
 }>;
 
 const initialState: CartState = {
-  cart: [
-    {
-      pizzaId: 12,
-      name: 'Mediterranean',
-      quantity: 2,
-      unitPrice: 16,
-      totalPrice: 32,
-    },
-  ],
+  cart: [],
 };
 
 export const cartSlice = createSlice({
