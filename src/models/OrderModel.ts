@@ -1,10 +1,4 @@
-type CartItem = {
-  pizzaId: number;
-  name: string;
-  quantity: number;
-  unitPrice: number;
-  totalPrice: number;
-};
+import { CartItemModel } from './CartItemModel';
 
 export type OrderModel = {
   id: string;
@@ -13,7 +7,7 @@ export type OrderModel = {
   address: string;
   priority: boolean;
   estimatedDelivery: string;
-  cart: CartItem[];
+  cart: CartItemModel[];
   position: string;
   orderPrice: number;
   priorityPrice: number;
