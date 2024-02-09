@@ -14,5 +14,5 @@ export default async function api<T>(
 
   const json = await response.json();
 
-  return json.data as T;
+  return json?.data as T;
 }

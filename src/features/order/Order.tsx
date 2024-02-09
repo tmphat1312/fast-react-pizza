@@ -9,6 +9,7 @@ import { calcMinutesLeft } from '../../utils/helpers';
 import OrderItem from './OrderItem';
 import { useEffect } from 'react';
 import { MenuItemModel } from '../../models/MenuItemModel';
+import UpdateOrderPriority from './UpdateOrderPriority';
 
 function Order() {
   const fetcher = useFetcher<MenuItemModel[]>();
@@ -85,6 +86,8 @@ function Order() {
           />
         </p>
       </div>
+
+      {!order.priority && <UpdateOrderPriority />}
     </div>
   );
 }

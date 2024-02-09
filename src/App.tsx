@@ -10,6 +10,7 @@ import AppLayout from './layouts/AppLayout';
 import ErrorElement from './ui/Error';
 import Home from './ui/Home';
 import Cart from './features/cart/Cart';
+import { updateOrderPriorityAction } from './features/order/UpdateOrderPriorityAction';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
         element: <Order />,
         loader: orderLoader,
         errorElement: <ErrorElement />,
+        action: updateOrderPriorityAction,
       },
     ],
   },
