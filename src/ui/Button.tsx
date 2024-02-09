@@ -6,7 +6,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const SIZE_VARIANTS = {
-  sm: 'px-3  py-2 text-xs md:px-4 md:py-2.5',
+  sm: 'px-3  py-2 text-xs md:px-3.5 md:py-2.5',
   md: 'px-4 py-3 text-base md:px-5',
 };
 
@@ -14,6 +14,7 @@ const STYLE_VARIANTS = {
   primary: 'bg-primary-400 text-stone-800',
   secondary:
     'text-stone-500 hover:text-stone-800 hover:bg-stone-300 border-2 border-stone-300',
+  rounded: 'bg-primary-400 rounded-full',
 };
 
 export default function Button({

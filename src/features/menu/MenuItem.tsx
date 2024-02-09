@@ -8,6 +8,7 @@ import { MenuItemModel } from '../../models/MenuItemModel';
 import Button from '../../ui/Button';
 import CurrencyPresenter from '../../ui/CurrencyPresenter';
 import RemoveCartItemButton from '../cart/RemoveCartItemButton';
+import UpdateItemQuantityButtons from '../cart/UpdateItemQuantityButtons';
 import { addItem, selectorItemQuantity } from '../cart/cartSlice';
 
 type MenuItemProps = {
@@ -55,7 +56,10 @@ export default function MenuItem({ pizza }: MenuItemProps) {
             <Fragment>
               <CurrencyPresenter amount={unitPrice} />
               {isAlreadyInCart ? (
-                <RemoveCartItemButton pizzaId={id} />
+                <div className="flex items-center gap-3 sm:gap-6">
+                  <UpdateItemQuantityButtons pizzaId={id} />
+                  <RemoveCartItemButton pizzaId={id} />
+                </div>
               ) : (
                 <Button size="sm" disabled={soldOut} onClick={handleAddToCart}>
                   Add to cart

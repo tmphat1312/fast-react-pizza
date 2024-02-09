@@ -1,6 +1,7 @@
 import { CartItemModel } from '../../models/CartItemModel';
 import CurrencyPresenter from '../../ui/CurrencyPresenter';
 import RemoveCartItemButton from './RemoveCartItemButton';
+import UpdateItemQuantityButtons from './UpdateItemQuantityButtons';
 
 type CartItemProps = {
   item: CartItemModel;
@@ -16,6 +17,8 @@ export default function CartItem({ item }: CartItemProps) {
         <span className="text-sm font-bold">
           <CurrencyPresenter amount={item.totalPrice} />
         </span>
+
+        <UpdateItemQuantityButtons pizzaId={item.pizzaId} />
 
         <RemoveCartItemButton pizzaId={item.pizzaId} />
       </div>

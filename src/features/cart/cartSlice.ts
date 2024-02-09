@@ -57,7 +57,16 @@ export const cartSlice = createSlice({
       const { pizzaId, quantity } = action.payload;
       const existingItem = state.cart.find((i) => i.pizzaId === pizzaId);
 
-      if (existingItem) {
+      if (!existingItem) {
+        return;
+      }
+
+      if (existingItem.quantity - quantity <= 0) {
+        cartSlice.caseReducers.removeItem(state, {
+          payload: pizzaId,
+          type: cartSlice.actions.removeItem.type,
+        });
+      } else {
         cartSlice.caseReducers.addItemQuantity(state, {
           payload: {
             pizzaId,
