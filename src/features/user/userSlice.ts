@@ -1,39 +1,54 @@
-// type GeoCoordinates = {
-//   latitude: number;
-//   longitude: number;
-// };
+import {
+  Action,
+  PayloadAction,
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
+import geoApi from '../../api/geoApi';
+import { GeoCoordinatesModel } from '../../models/GeoCoordinatesModel';
 
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+type RejectedAction = Action & { error: Error };
 
-// function getPosition() {
-//   return new Promise((resolve, reject) => {
-//     navigator.geolocation.getCurrentPosition(resolve, reject);
-//   });
-// }
+function isRejectedAction(action: Action): action is RejectedAction {
+  return action.type.endsWith('rejected');
+}
 
-// async function fetchAddress() {
-//   // 1) We get the user's geolocation position
-//   const positionObj = await getPosition();
+export const fetchAddress = createAsyncThunk('user/fetchAddress', async () => {
+  if (!navigator) {
+    alert('Geolocation is not supported by this browser.');
+    return;
+  }
 
-//   const position = {
-//     latitude: positionObj.coords.latitude,
-//     longitude: positionObj.coords.longitude,
-//   };
+  const geoPosition: GeolocationPosition = await new Promise(
+    (resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => resolve(position),
+        (error) => reject(error),
+      );
+    },
+  );
+  const position: GeoCoordinatesModel = {
+    latitude: geoPosition.coords.latitude,
+    longitude: geoPosition.coords.longitude,
+  };
 
-//   // 2) Then we use a reverse geocoding API to get a description of the user's address, so we can display it the order form, so that the user can correct it if wrong
-//   const addressObj = await getAddress(position);
-//   const address = `${addressObj?.locality}, ${addressObj?.city} ${addressObj?.postcode}, ${addressObj?.countryName}`;
+  const geoAddress = await geoApi(position);
+  const address = `${geoAddress.locality}, ${geoAddress.city} ${geoAddress.postcode}, ${geoAddress.countryName}`;
 
-//   // 3) Then we return an object with the data that we are interested in
-//   return { position, address };
-// }
+  return { position, address };
+});
 
 type UserState = {
   username: string;
+  geoState: 'idle' | 'loading' | 'fulfilled' | 'rejected';
+  position?: GeoCoordinatesModel;
+  address?: string;
+  errorMessage?: string;
 };
 
 const initialState: UserState = {
   username: '',
+  geoState: 'idle',
 };
 
 export const userSlice = createSlice({
@@ -43,6 +58,29 @@ export const userSlice = createSlice({
     setUsername: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchAddress.pending, (state) => {
+        state.geoState = 'loading';
+      })
+      .addCase(fetchAddress.fulfilled, (state, action) => {
+        state.geoState = 'fulfilled';
+
+        if (!action.payload) {
+          return;
+        }
+
+        state.position = action.payload.position;
+        state.address = action.payload.address;
+      })
+      .addMatcher(isRejectedAction, (state, action) => {
+        state.geoState = 'rejected';
+        // state.errorMessage = action.error.message;
+        state.errorMessage =
+          'Please enable location services to proceed, or enter your address manually. Make sure your address is correct and complete. Geolocation is recommended for accurate delivery time estimation.';
+      })
+      .addDefaultCase((state) => state);
   },
 });
 

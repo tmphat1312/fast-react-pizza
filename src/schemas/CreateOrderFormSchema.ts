@@ -4,4 +4,5 @@ export type CreateOrderFormSchema = {
   address: string;
   cart: string;
   priority: string;
+  position: string;
 };
