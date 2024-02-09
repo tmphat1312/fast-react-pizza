@@ -17,7 +17,7 @@ type MenuItemProps = {
 export default function MenuItem({ pizza }: MenuItemProps) {
   const { name, unitPrice, ingredients, soldOut, imageUrl, id } = pizza;
   const dispatch = useAppDispatch();
-  const isAlreadyInCart = useAppSelector(selectorItemQuantity(id));
+  const isAlreadyInCart = useAppSelector(selectorItemQuantity(id)) > 0;
 
   function handleAddToCart() {
     const newCartItem: CartItemModel = {
