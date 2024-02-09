@@ -1,0 +1,1 @@
+export const PRIORITY_ORDER_PRICE_RATE = 1.2;

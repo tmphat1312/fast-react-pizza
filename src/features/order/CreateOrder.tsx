@@ -4,39 +4,22 @@ import { CreateOrderFormSchema } from '../../schemas/CreateOrderFormSchema';
 import { FormErrorSchema } from '../../schemas/FormErrorSchema';
 import Button from '../../ui/Button';
 import { useAppSelector } from '../../hooks/useAppSelector';
-
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: 'Mediterranean',
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: 'Vegetale',
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: 'Spinach and Mushroom',
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
+import { selectTotalPrice } from '../cart/cartSlice';
+import { currencyFormatter } from '../../utils/formatter';
+import { useState } from 'react';
+import { PRIORITY_ORDER_PRICE_RATE } from '../../constants';
 
 function CreateOrder() {
   const navigation = useNavigation();
+  const [withPriority, setWithPriority] = useState<'on' | 'off'>('off');
   const username = useAppSelector((state) => state.user.username);
+  const cart = useAppSelector((state) => state.cart.cart);
+  const totalPrice = useAppSelector(selectTotalPrice);
   const formData = useFormActionData<FormErrorSchema<CreateOrderFormSchema>>();
-  // const [withPriority, setWithPriority] = useState(false);
-  const cart = fakeCart;
 
   const isSubmitting = navigation.state === 'submitting';
+  const finalPrice =
+    totalPrice * (withPriority === 'on' ? PRIORITY_ORDER_PRICE_RATE : 1);
   const errors = formData?.errors || {};
 
   return (
@@ -80,8 +63,8 @@ function CreateOrder() {
             type="checkbox"
             name="priority"
             id="priority"
-            // value={withPriority}
-            // onChange={(e) => setWithPriority(e.target.checked)}
+            value={withPriority}
+            onChange={(e) => setWithPriority(e.target.checked ? 'on' : 'off')}
           />
           <label htmlFor="priority" className="font-semibold">
             Want to yo give your order priority?
@@ -92,7 +75,9 @@ function CreateOrder() {
 
         <div>
           <Button disabled={isSubmitting} type="submit">
-            {isSubmitting ? 'Placing order...' : 'Place Order'}
+            {isSubmitting
+              ? 'Placing order...'
+              : `Order now from ${currencyFormatter.format(finalPrice)}`}
           </Button>
         </div>
       </Form>

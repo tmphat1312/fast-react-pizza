@@ -4,6 +4,8 @@ import { OrderModel } from '../../models/OrderModel';
 import { CreateOrderFormSchema } from '../../schemas/CreateOrderFormSchema';
 import { FormErrorSchema } from '../../schemas/FormErrorSchema';
 import { hasAnyKeys } from '../../utils/helpers';
+import { store } from '../../store';
+import { clearCart } from '../cart/cartSlice';
 
 function isValidPhone(str: string) {
   const IS_VALID_PHONE_REGEX =
@@ -42,6 +44,8 @@ export async function createOrderAction({ request }: ActionFunctionArgs) {
       'Content-Type': 'application/json',
     },
   });
+
+  store.dispatch(clearCart());
 
   return redirect('/order/:orderId'.replace(':orderId', newOrder.id));
 }
