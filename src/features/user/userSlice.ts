@@ -74,7 +74,7 @@ export const userSlice = createSlice({
         state.position = action.payload.position;
         state.address = action.payload.address;
       })
-      .addMatcher(isRejectedAction, (state, action) => {
+      .addMatcher(isRejectedAction, (state) => {
         state.geoState = 'rejected';
         // state.errorMessage = action.error.message;
         state.errorMessage =
