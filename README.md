@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+# FAST REACT PIZZA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Place your pizza order with convenience on Fast React Pizza website
 
-Currently, two official plugins are available:
+## Run Locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[yarn](https://yarnpkg.com/) and [NodeJS](https://nodejs.org/en) > v20.0 are required
 
-## Expanding the ESLint configuration
+Clone the project
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+  git clone https://github.com/tmphat1312/fast-react-pizza fast-react-pizza
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Go to the project directory
+
+```bash
+  cd fast-react-pizza
+```
+
+Install dependencies
+
+```bash
+  yarn
+```
+
+Start the server
+
+```bash
+  yarn dev
+```
+
+## Author
+
+- [@tmphat1312tmphat1312](https://www.github.com/tmphat1312)
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
